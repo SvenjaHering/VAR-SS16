@@ -6,10 +6,9 @@ import java.rmi.RemoteException;
 public class PI implements RMI {
 
 	public BigDecimal berechnePI() throws RemoteException {
-		// stehen jeweils für die x- und y-Kooradinate
-		// member ist nur eine Hilfsvariable, ergebnis für randomX^2+ randomY^2
-		BigDecimal x = new BigDecimal(0);
-		BigDecimal y = new BigDecimal(0);
+		// stehen jeweils fÃ¼r die x- und y-Kooradinate
+		// member ist nur eine Hilfsvariable, ergebnis fÃ¼r randomX^2+ randomY^2
+
 		double member = 0.0;
 		double hypothenuse = 0.0;
 		double anzahlInnen = 0.0;
@@ -17,13 +16,13 @@ public class PI implements RMI {
 
 		for (int i = 1; i <= 5000; i++) {
 
-			// RandomX, ist eine Zufallszahl für X
-			// RandomY, ist eine Zufallszahl für Y
+			// RandomX, ist eine Zufallszahl fÃ¼r X
+			// RandomY, ist eine Zufallszahl fÃ¼r Y
 
 			double randomX = (double) Math.random();
 			double randomY = (double) Math.random();
 			member = (randomX * randomX) + (randomY * randomY); // Phytagoras,
-																// für die
+																// fÃ¼r die
 																// Hypothenuse
 			hypothenuse = Math.sqrt(member);
 			if (hypothenuse < 1) {
@@ -32,7 +31,6 @@ public class PI implements RMI {
 				anzahlDraussen += 1;
 
 		}
-		// Fehler: RetValue muss BigDecimal sein
 
 		double a = (anzahlInnen / (anzahlDraussen + anzahlInnen)) * 4;
 
