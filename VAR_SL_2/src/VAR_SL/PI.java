@@ -6,7 +6,6 @@ import java.rmi.RemoteException;
 public class PI implements RMI {
 
 	public BigDecimal berechnePI() throws RemoteException {
-		// stehen jeweils für die x- und y-Kooradinate
 		// member ist nur eine Hilfsvariable, ergebnis für randomX^2+ randomY^2
 
 		double member = 0.0;
@@ -21,9 +20,7 @@ public class PI implements RMI {
 
 			double randomX = (double) Math.random();
 			double randomY = (double) Math.random();
-			member = (randomX * randomX) + (randomY * randomY); // Phytagoras,
-																// für die
-																// Hypothenuse
+			member = (randomX * randomX) + (randomY * randomY); // Phytagoras,für die Hypothenuse
 			hypothenuse = Math.sqrt(member);
 			if (hypothenuse < 1) {
 				anzahlInnen += 1;
