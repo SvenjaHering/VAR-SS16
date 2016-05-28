@@ -1,9 +1,9 @@
 package VAR_SL;
 
+import java.math.BigDecimal;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.math.*;
 
 public interface RMI extends Remote {
-public BigDecimal berechnePI() throws RemoteException;
+    public BigDecimal berechnePI(int precision) throws RemoteException;
 }
