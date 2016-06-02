@@ -19,7 +19,7 @@ public class ServerStartup {
             System.out.println("Security Manager konnte nicht eingerichtet werden");
         }
 
-        // RMI Registry einbinden
+        // RMI Registry einbinden auf "Standard-Port" REGISTRY_POST = 1099
         LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
 
         String name = "//" + args[0] + "/PI";
