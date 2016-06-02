@@ -1,0 +1,57 @@
+//Klasse Client Version Büsra
+
+package Client;
+
+import java.math.BigDecimal;
+import java.rmi.Naming;
+import java.rmi.RemoteException;
+
+import Server.Server;
+
+public class Client {
+	public BigDecimal berechnePi(int anz) throws RemoteException {
+		// rufe Servermethode auf
+		// Sammle Rückgaben
+		// berechne aus diesen Rückgabewerten Pi
+		BigDecimal pi=null;
+		long anzahlTreffer = 0;
+		long gesamtAnzahlTreffer = 0;
+		long gesamtAnzahl = 0;
+
+//		if (System.getSecurityManager() == null) {
+//			System.setSecurityManager(new SecurityManager());
+//		}
+		try {
+			String name = "//" + anz + "/PI";
+			Server s = (Server) Naming.lookup(name);
+
+			for (int i = 1; i < 42; i++) {
+				anzahlTreffer = s.berechneAnzahlTreffer(anz);
+				gesamtAnzahlTreffer += anzahlTreffer;
+				gesamtAnzahl += anz;
+			}
+
+			BigDecimal vier = new BigDecimal(4L);
+			BigDecimal divisor = new BigDecimal(gesamtAnzahl);
+
+			pi = (BigDecimal.valueOf(gesamtAnzahlTreffer).multiply(vier)
+					.divide(divisor));
+
+		} catch (Exception e) {
+			System.err.println("Client Exception" + e.getMessage());
+			e.printStackTrace();
+
+		}
+		return pi;
+
+	}
+
+	public static void main(String[] args) throws RemoteException {
+
+		Client c = new Client();
+		System.out.println(c.berechnePi(Integer.parseInt(args[0])));
+	
+
+	}
+}
+
