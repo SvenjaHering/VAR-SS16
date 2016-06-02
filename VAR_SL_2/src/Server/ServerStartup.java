@@ -1,4 +1,4 @@
-package VAR_SL;
+package Server;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;

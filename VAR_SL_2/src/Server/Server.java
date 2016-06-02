@@ -1,4 +1,4 @@
-package VAR_SL;
+package Server;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -19,16 +19,17 @@ public class Server extends UnicastRemoteObject implements RMI {
      */
     @Override
     public long berechneTropfenImKreis(long precision) {
-        long member = 0; // member als Hilfsvariable, ergebnis für randomX^2+ randomY^2
-        long hypothenuse = 0;
+        double pytaghorasC;
+        double hypothenuse;
         long anzahlInnerhalb = 0;
 
         for (int i = 1; i <= precision; i++) {
-            long randomX = (long) Math.random(); // RandomX, ist eine Zufallszahl für X
-            long randomY = (long) Math.random(); // RandomY, ist eine Zufallszahl für Y
-            member = (randomX * randomX) + (randomY * randomY); // Phytagoras,für die Hypothenuse
-            hypothenuse = (long) Math.sqrt(member);
-            if (hypothenuse < 1) {
+            double randomX = Math.random();
+            double randomY = Math.random();
+
+            pytaghorasC = (randomX * randomX) + (randomY * randomY);
+            hypothenuse = Math.sqrt(pytaghorasC);
+            if (hypothenuse <= 1) {
                 anzahlInnerhalb++;
             }
         }

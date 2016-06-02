@@ -1,12 +1,15 @@
-package VAR_SL;
+package Client;
 
 import java.math.BigDecimal;
 import java.rmi.Naming;
 
+import Server.RMI;
+
 public class Client {
 
     // Anzahl der Zufallszahlen, die berechnet werden sollen
-    public static final long PRECISION = 2000000;
+    public static final int WIEDERHOLUNGEN = 100;
+    public static final int PRECISION = 1000000;
 
     public static void main(String[] args) {
 
@@ -25,18 +28,30 @@ public class Client {
             String name = "//" + args[0] + "/PI";
             RMI rmi = (RMI) Naming.lookup(name);
 
-            long anzahlTropfenImKreis = rmi.berechneTropfenImKreis(PRECISION);
-            BigDecimal pi = berechnePI(anzahlTropfenImKreis);
+            System.out.println("PI wird berechnet...");
+
+            BigDecimal[] piArray = new BigDecimal[WIEDERHOLUNGEN];
+
+            for (int i = 0; i < WIEDERHOLUNGEN; i++) {
+                long anzahlTropfenImKreis = rmi.berechneTropfenImKreis(PRECISION);
+                piArray[i] = berechnePI(anzahlTropfenImKreis);
+            }
+
+            BigDecimal piSumme = new BigDecimal(0);
+            for (int i = 0; i < piArray.length; i++) {
+                piSumme = piSumme.add(piArray[i]);
+            }
+            BigDecimal pi = piSumme.divide(new BigDecimal(WIEDERHOLUNGEN));
             System.out.println(pi);
+
         } catch (Exception e) {
             System.err.println("Client Exception" + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    // TODO Formel noch fehlerhaft
     public static BigDecimal berechnePI(long anzahlTropfenImKreis) {
-        return new BigDecimal((anzahlTropfenImKreis / ((PRECISION - anzahlTropfenImKreis) + anzahlTropfenImKreis)) * 4);
+        return new BigDecimal(((double) anzahlTropfenImKreis / PRECISION) * 4);
     }
 
 }
