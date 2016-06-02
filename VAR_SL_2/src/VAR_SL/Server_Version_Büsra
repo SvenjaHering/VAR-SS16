@@ -1,0 +1,51 @@
+//Klasse Server Version Büsra
+
+package Server;
+
+import java.math.BigDecimal;
+import java.rmi.*;
+import java.rmi.server.UnicastRemoteObject;
+
+import Client.RMI;
+
+@SuppressWarnings("serial")
+public class Server extends UnicastRemoteObject implements RMI {
+
+	protected Server() throws RemoteException {
+		super();
+	}
+//Anzahl an Treffer im Viertelkreis berechnen
+	public long berechneAnzahlTreffer(int anz) throws RemoteException {
+		double member = 0.0;
+		double hypothenuse = 0.0;
+		int anzahlInnen = 0;
+		int anzahlDraussen = 0;
+
+		
+		
+		for (int i = 1; i <= anz; i++) {
+
+			// RandomX, ist eine Zufallszahl für X
+			// RandomY, ist eine Zufallszahl für Y
+
+			double randomX = (double) Math.random();
+			double randomY = (double) Math.random();
+			member = (randomX * randomX) + (randomY * randomY); // Phytagoras,
+																// für die
+																// Hypothenuse
+			hypothenuse = Math.sqrt(member);
+			if (hypothenuse < 1) {
+				anzahlInnen += 1;
+			} else
+				anzahlDraussen += 1;
+
+		}
+
+		long retValue = (anzahlInnen / (anzahlDraussen + anzahlInnen)) * 4;
+
+		
+
+		return retValue;
+	}
+
+}
