@@ -19,7 +19,8 @@ public class Server extends UnicastRemoteObject implements RMI {
      */
     @Override
     public long berechneTropfenImKreis(long precision) {
-        double pytaghorasC;
+
+        double pythagorasC;
         double hypothenuse;
         long anzahlInnerhalb = 0;
 
@@ -27,8 +28,9 @@ public class Server extends UnicastRemoteObject implements RMI {
             double randomX = Math.random();
             double randomY = Math.random();
 
-            pytaghorasC = (randomX * randomX) + (randomY * randomY);
-            hypothenuse = Math.sqrt(pytaghorasC);
+            // Prüfen, ob Tropfen innerhalb des Kreissegments
+            pythagorasC = (randomX * randomX) + (randomY * randomY);
+            hypothenuse = Math.sqrt(pythagorasC);
             if (hypothenuse <= 1) {
                 anzahlInnerhalb++;
             }

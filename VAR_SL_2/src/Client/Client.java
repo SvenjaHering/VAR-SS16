@@ -7,8 +7,10 @@ import Server.RMI;
 
 public class Client {
 
-    // Anzahl der Zufallszahlen, die berechnet werden sollen
+    // Anzahl der Berechnungen der Tropfen im Kreis
     public static final int WIEDERHOLUNGEN = 100;
+
+    // Anzahl der Zufallszahlen, die berechnet werden sollen
     public static final int PRECISION = 1000000;
 
     public static void main(String[] args) {
@@ -30,13 +32,16 @@ public class Client {
 
             System.out.println("PI wird berechnet...");
 
+            // Hier werden die genäherten Pi-Werte aus der for-Schleife gespeichert
             BigDecimal[] piArray = new BigDecimal[WIEDERHOLUNGEN];
 
+            // Berechnung von Pi anhand der Anzahl der Tropfen im Kreis
             for (int i = 0; i < WIEDERHOLUNGEN; i++) {
                 long anzahlTropfenImKreis = rmi.berechneTropfenImKreis(PRECISION);
                 piArray[i] = berechnePI(anzahlTropfenImKreis);
             }
 
+            // Durchschnittberechnung der Pi-Werte
             BigDecimal piSumme = new BigDecimal(0);
             for (int i = 0; i < piArray.length; i++) {
                 piSumme = piSumme.add(piArray[i]);
@@ -50,6 +55,14 @@ public class Client {
         }
     }
 
+    /**
+     * Berechnet Pi anhand einer Anzahl von Tropfen im Kreis
+     * 
+     * @param anzahlTropfenImKreis
+     *            Tropfen, die sich innerhalb des Kreissegments befinden
+     * @return gibt eine genäherte Kreiszahl Pi zurück
+     */
+    // Wichtig hier: double-Cast
     public static BigDecimal berechnePI(long anzahlTropfenImKreis) {
         return new BigDecimal(((double) anzahlTropfenImKreis / PRECISION) * 4);
     }
